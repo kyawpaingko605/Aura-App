@@ -22,16 +22,16 @@ jobs:
     - name: Setup Android SDK
       uses: android-actions/setup-android@v3
     
-    # ပြင်ဆင်လိုက်သည့်နေရာ - gradlew ဖိုင်မရှိရင် ဒီအဆင့်က အသစ်ဆောက်ပေးပါလိမ့်မယ်
+    # ပြင်ဆင်လိုက်သည့်နေရာ - Gradle ဗားရှင်း 8.7 ကို သတ်မှတ်ပြီး အသစ်ဆောက်ခိုင်းခြင်း
     - name: Generate Gradle Wrapper
-      run: gradle wrapper
+      run: gradle wrapper --gradle-version 8.7
     
-    # အသစ်ဆောက်ပြီးသား ဖိုင်ကို permission ပေးခြင်း
     - name: Grant execute permission
       run: chmod +x gradlew
     
+    # ပြင်ဆင်လိုက်သည့်နေရာ - Build လုပ်ရာတွင် အမှားပါက အသေးစိတ်ပြရန် --stacktrace ထည့်ထားသည်
     - name: Build Debug APK
-      run: ./gradlew assembleDebug
+      run: ./gradlew assembleDebug --stacktrace
     
     - name: Upload APK
       uses: actions/upload-artifact@v4
