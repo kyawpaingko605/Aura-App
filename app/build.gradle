@@ -1,3 +1,52 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    namespace 'com.example.aura' // မင်းရဲ့ package နာမည်
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.example.aura"
+        minSdk 24
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary true
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.5.1' // Kotlin ဗားရှင်းနဲ့ ကိုက်ညီတာ ထည့်ပါ
+    }
+    packaging {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+} // <--- ဒီ android block ရဲ့ တွန့်ကွင်း ပိတ်ထားတာ သေချာပါစေ
+
+// ပြီးမှ ဒီ dependencies block ကို ထည့်ရပါမယ်
 dependencies {
     implementation 'androidx.core:core-ktx:1.12.0'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.7.0'
@@ -8,12 +57,6 @@ dependencies {
     implementation 'androidx.compose.ui:ui'
     implementation 'androidx.compose.ui:ui-tooling-preview'
     implementation 'androidx.compose.material3:material3'
-    
-    // Sensors
-    implementation 'androidx.compose.ui:ui-sensor'
-    
-    // Speech-to-Text
-    implementation 'androidx.speech:speech:1.0.0-alpha02'
     
     // Preferences
     implementation 'androidx.datastore:datastore-preferences:1.0.0'
