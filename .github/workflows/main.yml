@@ -18,6 +18,8 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
+        # Cache စနစ်ထည့်ခြင်းဖြင့် နောက်တစ်ကြိမ် build ရင် dependency တွေကို ထပ်မံ download ဆွဲစရာမလိုတော့ဘဲ မြန်ဆန်သွားစေပါတယ်
+        cache: 'gradle'
     
     - name: Setup Android SDK
       uses: android-actions/setup-android@v3
@@ -26,6 +28,9 @@ jobs:
       run: chmod +x gradlew
     
     - name: Build Debug APK
+      # Memory ပြဿနာ မတက်စေဖို့ ဤနေရာမှာ Gradle JVM arguments (Memory) ကို တိုးမြှင့်သတ်မှတ်ပေးလိုက်ပါတယ်
+      env:
+        GRADLE_OPTS: -Dorg.gradle.jvmargs="-Xmx2048m -XX:MaxMetaspaceSize=512m"
       run: ./gradlew assembleDebug --stacktrace --info
     
     - name: Upload APK
