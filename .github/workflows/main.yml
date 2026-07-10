@@ -18,14 +18,20 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
+
+    # [သေချာပြင်ဆင်ထားသည့်နေရာ] 
+    # Gradle 9.6.1 ကို လုံးဝကျော်ပြီး၊ တရားဝင် Gradle 8.7 ကို Runner စက်ထဲ တိုက်ရိုက် သွင်းလိုက်ခြင်းဖြစ်ပါတယ်
+    - name: Setup Gradle 8.7
+      uses: gradle/actions/setup-gradle@v4
+      with:
+        gradle-version: '8.7'
     
     - name: Setup Android SDK
       uses: android-actions/setup-android@v3
-
-    # [သေချာပြင်ဆင်ထားသည့်နေရာ]
-    # မင်းရဲ့ အရင်းမြစ်ကုဒ် (build.gradle) ကို မထိခိုက်စေဘဲ Gradle Version 8.7 Wrapper ကို သီးသန့် အရင်ဆောက်ခိုင်းခြင်းဖြစ်ပါတယ်
-    - name: Generate Gradle Wrapper safely
-      run: gradle wrapper --gradle-version 8.7 --no-project-version
+    
+    # Gradle 8.7 စက်ထဲရောက်သွားပြီမို့ လုံခြုံစိတ်ချစွာ wrapper ဆောက်နိုင်ပါပြီ
+    - name: Generate Gradle Wrapper
+      run: gradle wrapper
     
     - name: Grant execute permission
       run: chmod +x gradlew
